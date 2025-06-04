@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Analyzer</title>
+</head>
+<body>
+    <h1>Upload a CSV file</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if averages %}
+        <h2>Column Averages</h2>
+        <table border="1">
+            <tr>
+                <th>Column</th>
+                <th>Average</th>
+            </tr>
+            {% for key, value in averages.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ "%.2f"|format(value) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
