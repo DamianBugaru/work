@@ -1,3 +1,6 @@
+"""Calculate column-wise averages from a CSV file."""
+
+import argparse
 import csv
 
 def calculate_averages(filename):
@@ -18,8 +21,16 @@ def calculate_averages(filename):
         averages = {key: totals[key] / counts[key] for key in totals}
         return averages
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Calculate averages for each numeric column in a CSV file"
+    )
+    parser.add_argument("csvfile", help="Path to the CSV file")
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    filename = "data.csv"  # replace with your CSV filename
-    averages = calculate_averages(filename)
+    args = parse_args()
+    averages = calculate_averages(args.csvfile)
     for column, avg in averages.items():
         print(f"{column}: {avg:.2f}")
